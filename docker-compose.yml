@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        - RUBY_VERSION=3.1
+    tty: true
+    container_name: ruby_app
+    restart: always
+    hostname: app
+    working_dir: /var/www/html
+    expose:
+      - "3000"  # Rails default port
+    ports:
+        - "3000:3000"
+    volumes:
+      - ./:/var/www/html:cached
+      - ./docker/config/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    links:
+      - database
+    command: bash -c "bin/rails server -b '0.0.0.0'"
+
+  # The Database
+  database:
+    image: postgres:15
+    container_name: ruby_db
+    restart: always
+    platform: linux/x86_64
+    volumes:
+      - ./docker/postgresql:/var/lib/postgresql/data:rw
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/var/lib/postgresql/data
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
