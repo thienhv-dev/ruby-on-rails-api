@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  api:
+    errors:
+      messages:
+        not_found:
+          default: Couldn't find %{resource}
