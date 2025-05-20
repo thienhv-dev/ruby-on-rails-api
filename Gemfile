@@ -40,6 +40,7 @@ gem "devise"
 gem "devise-jwt"
 gem 'active_model_serializers'
 gem 'ransack'
+gem 'pry'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -53,6 +54,8 @@ group :development, :test do
 
   # Use RSpec as the test framework [https://github.com/rspec/rspec-rails/]
   gem 'rspec-rails'
+
+  gem 'factory_bot_rails'
 end
 
 group :development do
